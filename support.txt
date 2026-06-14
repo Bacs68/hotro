@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trung tâm hỗ trợ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .support-app {
+            width: 420px;
+            background: #020617;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            overflow: hidden;
+            border: 1px solid #1f2937;
+        }
+
+        .support-header {
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .support-tabs {
+            display: flex;
+            background: #020617;
+            border-bottom: 1px solid #111827;
+        }
+
+        .support-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .support-tab.active {
+            color: #0ea5e9;
+            border-bottom: 2px solid #0ea5e9;
+        }
+
+        .support-body {
+            padding: 14px 16px 18px;
+            max-height: 420px;
+            overflow-y: auto;
+            background: #020617;
+        }
+
+        .faq-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #020617;
+            border: 1px solid #111827;
+        }
+
+        .faq-question {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #e5e7eb;
+        }
+
+        .faq-answer {
+            padding: 0 12px 10px;
+            font-size: 13px;
+            color: #9ca3af;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #111827;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 13px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .success-msg {
+            display: none;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="support-app">
+    <div class="support-header">
+        <div>
+            <div style="font-size:18px;font-weight:bold;">Trung tâm hỗ trợ</div>
+            <div style="font-size:12px;opacity:0.9;">Trực tuyến: 09:00 - 23:00</div>
+        </div>
+    </div>
+
+    <div class="support-tabs">
+        <div class="support-tab active" data-tab="faq">FAQ</div>
+        <div class="support-tab" data-tab="ticket">Gửi yêu cầu</div>
+        <div class="support-tab" data-tab="contact">Liên hệ</div>
+    </div>
+
+    <div class="support-body">
+
+        <!-- FAQ -->
+        <div class="tab-content" id="tab-faq">
+            <div class="faq-item">
+                <div class="faq-question">Quên mật khẩu phải làm sao?</div>
+                <div class="faq-answer">Nhấn “Quên mật khẩu” và làm theo hướng dẫn.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Thời gian xử lý hỗ trợ?</div>
+                <div class="faq-answer">5–15 phút tùy mức độ.</div>
+            </div>
+        </div>
+
+        <!-- Gửi yêu cầu -->
+        <div class="tab-content" id="tab-ticket" style="display:none;">
+            <form id="ticket-form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Tên của bạn">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="contact" placeholder="Telegram / Zalo / Email">
+                </div>
+                <div class="form-group">
+                    <select id="type">
+                        <option value="tai-khoan">Tài khoản</option>
+                        <option value="nap-rut">Nạp / rút</option>
+                        <option value="khac">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="content" placeholder="Mô tả vấn đề..."></textarea>
+                </div>
+                <button class="btn-submit">Gửi yêu cầu</button>
+                <div class="success-msg" id="success-msg">Đã gửi yêu cầu!</div>
+            </form>
+        </div>
+
+        <!-- Liên hệ -->
+        <div class="tab-content" id="tab-contact" style="display:none;">
+            <div class="faq-item">
+                <div class="faq-question">Telegram hỗ trợ</div>
+                <div class="faq-answer">@your_telegram</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Zalo CSKH</div>
+                <div class="faq-answer">09xx xxx xxx</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Chuyển tab
+    const tabs = document.querySelectorAll('.support-tab');
+    const contents = {
+        faq: document.getElementById('tab-faq'),
+        ticket: document.getElementById('tab-ticket'),
+        contact: document.getElementById('tab-contact')
+    };
+
+    tabs.forEach(tab => {
+        tab.onclick = () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const name = tab.dataset.tab;
+            Object.keys(contents).forEach(key => {
+                contents[key].style.display = key === name ? 'block' : 'none';
+            });
+        };
+    });
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.querySelector('.faq-question').onclick = () => {
+            item.classList.toggle('active');
+        };
+    });
+
+    // Form submit
+    document.getElementById('ticket-form').onsubmit = e => {
+        e.preventDefault();
+        document.getElementById('success-msg').style.display = 'block';
+    };
+</script>
+
+</body>
+</html>
